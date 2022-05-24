@@ -1,9 +1,10 @@
 from google.cloud import dialogflowcx_v3beta1
 from google.oauth2 import service_account
 from google.cloud import storage
-import os
+import os, sys
 
-credentials = service_account.Credentials.from_service_account_file('alien-hour-350703-c26ef39be23a.json')
+credFile = sys.argv[1]
+credentials = service_account.Credentials.from_service_account_file(f'{credFile}')
 storage_client = storage.Client(credentials=credentials)
 
 output = os.popen('find /var/jenkins_home/workspace/gcp-pipeline/ -type f -name exported_agent_test.blob').read()
