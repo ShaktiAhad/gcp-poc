@@ -4,7 +4,7 @@ pipeline {
     stages {
         stage('prepare') {
             steps {
-                bat 'pip install -r requirements.txt'
+                sh 'pip install -r requirements.txt'
             }
         }
         stage('upload to bucket') {
@@ -12,7 +12,7 @@ pipeline {
                 script {
                    echo 'uploading'
                    withCredentials([file(credentialsId: 'gcp-cred', variable: 'CredentialFile')]){
-                        bat(script:"b.py ${CredentialFile}", returnStdout: true)
+                        sh "b.py ${CredentialFile}"
                     }    
                 }
             }
