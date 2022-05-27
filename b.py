@@ -6,4 +6,4 @@ version = sys.argv[3] # v0.0.0
 if env == "preprod":
     blob_file_name = sys.argv[4] # exported_agent
 
-print(env, version, blob_file_name)
+print(env, version)
