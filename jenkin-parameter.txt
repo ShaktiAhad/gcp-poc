@@ -1,4 +1,5 @@
 enable "discard old build"
+task_type - return["release","rollback"]
 env - return["preprod","prod"]
 version
-blob_file_name - if(!env.equals("prod")){return "<input name='value' class='setting-input' type='text'>"} - Formatted HTML
+blob_file_name - if(!env.equals("prod") && !task_type.equals("rollback")){return "<input name='value' class='setting-input' type='text'>"} - Formatted HTML

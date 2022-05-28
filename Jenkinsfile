@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     stages {
-        stage('rollback details') {
+        stage('release details') {
             steps {
                 echo "${params.env}, ${params.version}, ${params.blob_file_name}"
             }
@@ -17,7 +17,7 @@ pipeline {
                 script {
                    withCredentials([file(credentialsId: 'gcp-cred', variable: 'CredentialFile')])
                     {
-                        sh "python3 rollback.py ${CredentialFile} ${params.env} ${params.version}" 
+                        sh "python3 task_exec.py ${CredentialFile} ${params.task_type} ${params.env} ${params.version} ${params.blob_file_name}" 
                     } 
                 }
             }
