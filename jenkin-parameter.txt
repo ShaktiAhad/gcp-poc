@@ -1,0 +1,4 @@
+enable "discard old build"
+env - return["preprod","prod"]
+version
+blob_file_name - if(!env.equals("prod")){return "<input name='value' class='setting-input' type='text'>"}
