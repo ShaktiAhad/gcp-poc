@@ -5,7 +5,7 @@ def copy_blob_preprod_to_prod_bucket(source_bucket_name, destination_bucket_name
     storage_client = starting().storage_client
     version = arg.version
     source_blob_name = com_get_blob.get_blob(source_bucket_name)
-    blob_file_name = source_blob_name.split('_v0.0.0.blob').pop(-2)
+    blob_file_name = source_blob_name.split('_{arg.version}.blob').pop(-2)
     dest_blob_name = f"{blob_file_name}_Release_{version}.blob"
 
     source_bucket = storage_client.bucket(source_bucket_name, user_project="prerprod-project")
