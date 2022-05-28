@@ -11,4 +11,4 @@ def upload_blob_to_preprod_bucket(bucket_name):
     blob = bucket.blob(f"{blob_file_name}_{version}.blob")
     blob.upload_from_filename(source_file_name)
 
-    print(f"File {source_file_name} uploaded to {blob_file_name}_{version}.blob")
+    print(f"---> File {blob_file_name} uploaded to {bucket_name} & renamed as {blob_file_name}_{version}.blob")
