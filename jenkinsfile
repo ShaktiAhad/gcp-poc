@@ -9,7 +9,7 @@ pipeline {
         }
         stage('release details') {
             steps {
-                echo "${params.env}", "${params.version}", "${params.blob_file_name}"
+                echo "${params.env}, ${params.version}, ${params.blob_file_name}"
             }
         }
         stage('restore agent') {
