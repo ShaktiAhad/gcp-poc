@@ -1,14 +1,12 @@
 from gcp_class import starting
 import com_get_blob
 
-def restore_agent(env, bucket_name, project_id):
+def restore_agent(env, bucket_name, project_id, agent_id):
     client = starting().client
     dialogflowcx_v3beta1 = starting().dialogflowcx
     if env == "preprod":
-        agent_id = "b19e696a-f210-4555-b4d1-abeb3f03f16b"
         blob_file_name = com_get_blob.get_blob(bucket_name)
     elif env == "prod":
-        agent_id = "8b2cbcda-3c04-4197-adf0-ea489426a11c"
         blob_file_name = com_get_blob.get_blob(bucket_name)
         print(blob_file_name)
     client.restore_agent(
