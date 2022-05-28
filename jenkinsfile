@@ -2,14 +2,14 @@ pipeline {
     agent any
 
     stages {
-        stage('prepare') {
-            steps {
-                sh 'pip3 install -r requirements.txt'
-            }
-        }
         stage('release details') {
             steps {
                 echo "${params.env}, ${params.version}, ${params.blob_file_name}"
+            }
+        }
+        stage('installing necessary module') {
+            steps {
+                sh 'pip3 install -r requirements.txt'
             }
         }
         stage('restore agent') {
