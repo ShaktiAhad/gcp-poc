@@ -8,7 +8,6 @@ def restore_agent(env, bucket_name, project_id, agent_id):
         blob_file_name = com_get_blob.get_blob(bucket_name)
     elif env == "prod":
         blob_file_name = com_get_blob.get_blob(bucket_name)
-        print(blob_file_name)
     client.restore_agent(
         request=dialogflowcx_v3beta1.RestoreAgentRequest(
                 agent_uri=f"gs://{bucket_name}/{blob_file_name}",
