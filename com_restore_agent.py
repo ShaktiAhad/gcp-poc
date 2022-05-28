@@ -16,4 +16,4 @@ def restore_agent(env, bucket_name, project_id):
                 agent_uri=f"gs://{bucket_name}/{blob_file_name}",
                 name=f"projects/{project_id}/locations/asia-northeast1/agents/{agent_id}",
         ))
-    print("restored agent.")
+    print(f"---> restored agent:{blob_file_name} from {bucket_name} to {project_id}.")
