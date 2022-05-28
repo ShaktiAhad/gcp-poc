@@ -4,7 +4,7 @@ pipeline {
     stages {
         stage('operation details') {
             steps {
-                echo "${params.task_type} ${params.env}, ${params.version}, ${params.blob_file_name}"
+                echo "${params.task_type}, ${params.env}, ${params.version}, ${params.blob_file_name}"
             }
         }
         stage('installing necessary module') {
