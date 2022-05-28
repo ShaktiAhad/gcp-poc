@@ -11,9 +11,9 @@ pipeline {
             steps {
                 script {
                    echo 'starting'
-                   echo ${params.env}
-                   echo ${params.version}
-                   echo ${params.blob_file_name}
+                   echo '${params.env}'
+                   echo '${params.version}'
+                   echo '${params.blob_file_name}'
                    withCredentials([file(credentialsId: 'gcp-cred', variable: 'CredentialFile')])
                     {
                         sh "python3 task_exec.py ${CredentialFile} ${params.env} ${params.version} ${params.blob_file_name}" 
