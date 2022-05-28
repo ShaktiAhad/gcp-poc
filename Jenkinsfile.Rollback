@@ -17,7 +17,7 @@ pipeline {
                 script {
                    withCredentials([file(credentialsId: 'gcp-cred', variable: 'CredentialFile')])
                     {
-                        sh "python3 task_exec.py ${CredentialFile} ${params.env} ${params.version}" 
+                        sh "python3 rollback.py ${CredentialFile} ${params.env} ${params.version}" 
                     } 
                 }
             }
