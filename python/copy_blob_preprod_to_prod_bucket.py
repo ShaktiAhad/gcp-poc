@@ -1,5 +1,5 @@
 from gcp_class import starting
-import com_get_blob, arg
+import com_get_blob, python.arg as arg
 
 def copy_blob_preprod_to_prod_bucket(source_bucket_name, destination_bucket_name):
     storage_client = starting().storage_client

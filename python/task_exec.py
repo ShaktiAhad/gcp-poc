@@ -1,4 +1,4 @@
-import upload_blob_github_to_preprod_bucket, com_restore_agent, copy_blob_preprod_to_prod_bucket, arg
+import upload_blob_github_to_preprod_bucket, com_restore_agent, copy_blob_preprod_to_prod_bucket, python.arg as arg
 
 def task_exec(env):
     print(f"\n---> working on {env} env.")

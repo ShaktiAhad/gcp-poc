@@ -1,5 +1,5 @@
 from gcp_class import starting
-import arg
+import python.arg as arg
 
 def get_blob(bucket_name):
     storage_client = starting().storage_client

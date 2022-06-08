@@ -1,0 +1,72 @@
+@Library('my-shared-library') _
+
+pipeline {
+    agent any
+    environment {
+        PREPROD_BUCKET = "dialogflow-bucket-preprod"
+    }
+ 
+    stages {
+        stage('Setup parameters') {
+            steps {
+                script { 
+                    properties([
+                        parameters([
+                            string(
+                                name: 'version', 
+                                defaultValue: 'v0.0.0',
+                                description: 'release version', 
+                                trim: true
+                            ),
+                            string(
+                                name: 'agent_name',
+                                description: 'put the agent name', 
+                                defaultValue: 'agent2',
+                                trim: true
+                            ),
+                            string(
+                                name: 'blob_file_name',
+                                description: 'put the blob file name without .blob part', 
+                                defaultValue: 'exported_agent_agent-test.blob',
+                                trim: true
+                            )
+                        ])
+                    ])
+                }
+            }
+        }
+        stage('preparation'){
+            steps{
+                gcpComponentUpdate()
+            }
+        }
+        stage('upload blob file to bucket'){
+            steps{
+                println "--> upload blob file to bucket stage"
+                uploadBlobToBucket()
+                }
+            }
+        stage('get_existing_agents') {
+            steps {
+                script{
+                    println "--> get_existing_agent stage"
+                    (agentName_n_id, agent_id) = getExistingAgent()
+                    if (agentName_n_id.containsKey(params.agent_name)) {println "--> Already exist: ${agentName_n_id}"}
+                    else {
+                        println "--> Couldn't find the agent. Creating agent: ${params.agent_name}"
+                        stage('create_agent'){
+                            println "--> create_agent stage"
+                            agent_id = createAgent()
+                        }
+                    }
+                }
+            }
+        }
+        stage('restore_agent'){
+            steps{
+                println "--> restore_agent stage"
+                restoreAgent(agent_id)
+            }
+        }
+    }
+}

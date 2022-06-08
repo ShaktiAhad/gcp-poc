@@ -1,5 +1,5 @@
 from gcp_class import starting
-import arg, os
+import python.arg as arg, os
 
 def upload_blob_to_preprod_bucket(bucket_name):
     version = arg.version
