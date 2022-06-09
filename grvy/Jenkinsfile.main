@@ -37,13 +37,17 @@ pipeline {
         }
         stage('preparation'){
             steps{
-                Jenkinsfile.gcpComponentUpdate
+                script { 
+                    Jenkinsfile.gcpComponentUpdate
+                }
             }
         }
         stage('upload blob file to bucket'){
             steps{
+                script { 
                 println "--> upload blob file to bucket stage"
                 Jenkinsfile.uploadBlob
+                }
             }
         }
     }
