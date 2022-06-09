@@ -1,6 +1,7 @@
 #!/usr/bin/env groovy
 
-def call(){
+def call(params){
     sh(script: 'gcloud components update -q')
+    return params
 }
 return this
