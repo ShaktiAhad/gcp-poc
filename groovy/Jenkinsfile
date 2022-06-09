@@ -3,8 +3,8 @@
 pipeline {
     agent any
     environment {
-        PREPROD_BUCKET = "dialogflow-bucket-preprod",
-        PROJECT_NAME = "prerprod-project",
+        PREPROD_BUCKET = "dialogflow-bucket-preprod"
+        PROJECT_NAME = "prerprod-project"
         LOCATION = "asia-northeast1"
     }
  
