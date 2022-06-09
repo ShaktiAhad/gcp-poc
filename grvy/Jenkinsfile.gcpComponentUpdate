@@ -1,3 +1,5 @@
+#!/usr/bin/env groovy
+
 def gcp(){
     sh(script: 'gcloud components update -q')
 }
