@@ -1,6 +1,6 @@
-// #!/usr/bin/env groovy
+#!/usr/bin/env groovy
 
-def gcp(){
+def call(){
     sh(script: 'gcloud components update -q')
 }
 return this
