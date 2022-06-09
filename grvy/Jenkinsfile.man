@@ -1,5 +1,3 @@
-#!/usr/bin/env groovy
-
 node('master'){
   environment {
         PREPROD_BUCKET = "dialogflow-bucket-preprod"
@@ -7,7 +5,7 @@ node('master'){
         LOCATION = "asia-northeast1"
     }
   stage('preparation'){
-         def s = load"grvy/Jenkinsfile.gcpComponentUpdate"  
+         def s = load'grvy/Jenkinsfile.gcpComponentUpdate'
          s.gcp()
   }
   stage('workspace cleanup'){
