@@ -5,8 +5,8 @@ node('master'){
         LOCATION = "asia-northeast1"
     }
   stage('preparation'){
-        //  def s = load'grvy/Jenkinsfile.gcpComponentUpdate'
-        //  s.gcp()
+        def s = load'grvy/Jenkinsfile.gcpComponentUpdate'
+        s.gcp()
         sh "echo hello"
   }
   stage('workspace cleanup'){
