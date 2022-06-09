@@ -38,7 +38,7 @@ pipeline {
         stage('preparation'){
             steps{
                 script { 
-                    Jenkinsfile.gcpComponentUpdate
+                    readFileFromWorkspace('grvy/Jenkinsfile.gcpComponentUpdate')
                 }
             }
         }
@@ -46,7 +46,7 @@ pipeline {
             steps{
                 script { 
                 println "--> upload blob file to bucket stage"
-                Jenkinsfile.uploadBlob
+                readFileFromWorkspace('grvy/Jenkinsfile.uploadBlob')
                 }
             }
         }
