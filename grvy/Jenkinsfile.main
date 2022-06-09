@@ -38,7 +38,7 @@ pipeline {
         stage('preparation'){
             steps{
                 script { 
-                    load'grvy/Jenkinsfile.gcpComponentUpdate'
+                    load'grvy/Jenkinsfile.gcpComponentUpdate()'
                 }
             }
         }
