@@ -8,4 +8,7 @@ node('master'){
          def s = load'grvy/Jenkinsfile.gcpComponentUpdate'  
          s.gcp()
   }
+  stage('workspace cleanup'){
+        cleanWs()
+}
 }
