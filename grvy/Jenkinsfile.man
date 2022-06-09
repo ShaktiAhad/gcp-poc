@@ -6,7 +6,7 @@ node('master'){
     }
   stage('preparation'){
     stage('preparation'){
-         s = load'grvy/Jenkinsfile.gcpComponentUpdate'  
+         def s = load'grvy/Jenkinsfile.gcpComponentUpdate'  
          s()
     }
   }
