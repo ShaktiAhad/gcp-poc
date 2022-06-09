@@ -1,0 +1,50 @@
+pipeline {
+    agent any
+    environment {
+        PREPROD_BUCKET = "dialogflow-bucket-preprod"
+        PROJECT_NAME = "prerprod-project"
+        LOCATION = "asia-northeast1"
+    }
+ 
+    stages {
+        stage('Setup parameters') {
+            steps {
+                script { 
+                    properties([
+                        parameters([
+                            string(
+                                name: 'version', 
+                                defaultValue: 'v0.0.0',
+                                description: 'release version', 
+                                trim: true
+                            ),
+                            string(
+                                name: 'agent_name',
+                                description: 'put the agent name', 
+                                defaultValue: 'agent2',
+                                trim: true
+                            ),
+                            string(
+                                name: 'blob_file_name',
+                                description: 'put the blob file name without .blob part', 
+                                defaultValue: 'exported_agent_agent-test.blob',
+                                trim: true
+                            )
+                        ])
+                    ])
+                }
+            }
+        }
+        stage('preparation'){
+            steps{
+                Jenkinsfile.gcpComponentUpdate
+            }
+        }
+        stage('upload blob file to bucket'){
+            steps{
+                println "--> upload blob file to bucket stage"
+                Jenkinsfile.uploadBlob
+            }
+        }
+    }
+}
