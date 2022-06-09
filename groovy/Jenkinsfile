@@ -69,6 +69,11 @@ pipeline {
                 println "--> restore_agent stage"
                 restoreAgent(agent_id)
             }
-        }
+        }cleanWs()
+       stage('workspace cleanup'){
+            steps{
+                cleanWs()
+            }
+        } 
     }
 }
