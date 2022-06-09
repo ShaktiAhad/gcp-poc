@@ -11,7 +11,4 @@ node('master'){
         print find_blob_file
         sh "echo hello"
   }
-  stage('workspace cleanup'){
-        cleanWs()
-}
 }
