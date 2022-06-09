@@ -2,6 +2,7 @@
 import groovy.json.JsonSlurper
 
 def call(){
+    load "${env.WORKSPACE}/grvy/apiPreparation.groovy"
     def get_agent_detail = apiPreparation(null)[1]
     def agent_details = new JsonSlurper().parseText(get_agent_detail.inputStream.text)
     def agentName_n_id = [:]
