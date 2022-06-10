@@ -5,10 +5,7 @@ node('master'){
         LOCATION = "asia-northeast1"
     }
   stage('preparation'){
-        // def s = load'grvy/gcpComponentUpdate.groovy'
-        // s.gcp()
-        def find_blob_file = sh(script: "find ${env.WORKSPACE} -type f -name gcpComponentUpdate.groovy")
-        print find_blob_file
-        sh "echo hello"
+        def s = load'grvy/gcpComponentUpdate.groovy'
+        s.gcp()
   }
 }
