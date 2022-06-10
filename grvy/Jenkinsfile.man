@@ -5,7 +5,7 @@ node('master'){
         LOCATION = "asia-northeast1"
     }
     stage('clone repo'){
-        git clone https://github.com/ShaktiAhad/gcp-poc.git
+        sh "git clone https://github.com/ShaktiAhad/gcp-poc.git"
     }
     stage('preparation'){
         def s = load ("grvy/Jenkinsfile.gcpComponentUpdate")
