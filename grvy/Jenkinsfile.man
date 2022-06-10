@@ -1,14 +1,14 @@
 node('master'){
-  environment {
+    environment {
         PREPROD_BUCKET = "dialogflow-bucket-preprod"
         PROJECT_NAME = "prerprod-project"
         LOCATION = "asia-northeast1"
     }
-  stage('preparation'){
-        def rootDir = pwd()
-        def s = load "${rootDir}@script/Jenkinsfile.gcpComponentUpdate"
+    stage('clone repo'){
+        git clone https://github.com/ShaktiAhad/gcp-poc.git
+    }
+    stage('preparation'){
+        def s = load ("grvy/Jenkinsfile.gcpComponentUpdate")
         s.gcp()
-        //def s = load ("grvy/Jenkinsfile.gcpComponentUpdate")
-        //s.gcp()
-  }
+    }
 }
