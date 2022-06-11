@@ -2,7 +2,7 @@
 import groovy.json.JsonSlurper
 
 def call(){
-    def apiPreparation = load "${env.WORKSPACE}/gcp-poc/grvy/Jenkinsfile.stage.apiPreparation"
+    def apiPreparation = load "${env.WORKSPACE}/gcp-poc/groovy-scripted-pipeline/Jenkinsfile.stage.apiPreparation"
     def get_agent_detail = apiPreparation(null)[1]
     def agent_details = new JsonSlurper().parseText(get_agent_detail.inputStream.text)
     def agentName_n_id = [:]

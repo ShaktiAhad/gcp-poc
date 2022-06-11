@@ -8,7 +8,7 @@ def call(){
         "timeZone": "Asia/Tokyo", 
         "description": "${params.agent_name} agent"
         }"""
-    def apiPreparation = load "${env.WORKSPACE}/gcp-poc/grvy/Jenkinsfile.stage.apiPreparation"
+    def apiPreparation = load "${env.WORKSPACE}/gcp-poc/groovy-scripted-pipeline/Jenkinsfile.stage.apiPreparation"
     def create_agent = apiPreparation(null)[1]
     create_agent.setRequestMethod("POST")
     create_agent.setDoOutput(true)

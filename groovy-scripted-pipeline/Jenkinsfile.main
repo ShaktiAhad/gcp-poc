@@ -29,26 +29,26 @@ node('master'){
     stage('preparation'){
         cleanWs()
         sh "git clone https://github.com/ShaktiAhad/gcp-poc.git"
-        def fleChkNgcpCompUpdt = load ("gcp-poc/grvy/Jenkinsfile.stage.fleChkNgcpCompUpdt")
+        def fleChkNgcpCompUpdt = load ("gcp-poc/groovy-scripted-pipeline/Jenkinsfile.stage.fleChkNgcpCompUpdt")
         fleChkNgcpCompUpdt()
     }
 
     stage('upload blob file to bucket'){
         println "--> upload blob file to bucket stage"
-        def uploadBlobToBucket = load ("gcp-poc/grvy/Jenkinsfile.stage.uploadBlobToBucket")
+        def uploadBlobToBucket = load ("gcp-poc/groovy-scripted-pipeline/Jenkinsfile.stage.uploadBlobToBucket")
         uploadBlobToBucket()
     }
 
     stage('get_existing_agents') {
         println "--> get_existing_agent stage"
-        def getExistingAgent = load ("gcp-poc/grvy/Jenkinsfile.stage.getExistingAgent")
+        def getExistingAgent = load ("gcp-poc/groovy-scripted-pipeline/Jenkinsfile.stage.getExistingAgent")
         (agentName_n_id, agent_id) = getExistingAgent()
         if (agentName_n_id.containsKey(params.agent_name)) {println "--> Already exist: ${agentName_n_id}"}
         else {
             println "--> Couldn't find the agent. Creating agent: ${params.agent_name}"
             stage('create_agent'){
                 println "--> create_agent stage"
-                def createAgent = load ("gcp-poc/grvy/Jenkinsfile.stage.createAgent")
+                def createAgent = load ("gcp-poc/groovy-scripted-pipeline/Jenkinsfile.stage.createAgent")
                 agent_id = createAgent()
             }
         }
@@ -56,7 +56,7 @@ node('master'){
 
     stage('restore_agent'){
         println "--> restore_agent stage"
-        def restoreAgent = load ("gcp-poc/grvy/Jenkinsfile.stage.restoreAgent")
+        def restoreAgent = load ("gcp-poc/groovy-scripted-pipeline/Jenkinsfile.stage.restoreAgent")
         restoreAgent(agent_id)
     }
 
