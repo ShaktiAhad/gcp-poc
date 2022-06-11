@@ -29,6 +29,7 @@ node('master'){
         ])
     }
     stage('clone repo'){
+        cleanWs()
         sh "git clone https://github.com/ShaktiAhad/gcp-poc.git"
     }
     stage('preparation'){
