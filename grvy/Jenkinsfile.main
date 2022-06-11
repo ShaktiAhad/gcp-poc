@@ -1,55 +1,66 @@
-pipeline {
-    agent any
-    environment {
-        PREPROD_BUCKET = "dialogflow-bucket-preprod"
-        PROJECT_NAME = "prerprod-project"
-        LOCATION = "asia-northeast1"
+PREPROD_BUCKET = "dialogflow-bucket-preprod"
+PROJECT_NAME = "prerprod-project"
+LOCATION = "asia-northeast1"
+
+node('master'){
+    properties([
+        parameters([
+            string(
+                name: 'version', 
+                defaultValue: 'v0.0.0',
+                description: 'release version', 
+                trim: true
+            ),
+            string(
+                name: 'agent_name',
+                description: 'put the agent name', 
+                defaultValue: 'agent2',
+                trim: true
+            ),
+            string(
+                name: 'blob_file_name',
+                description: 'put the blob file name without .blob part', 
+                defaultValue: 'exported_agent_agent-test.blob',
+                trim: true
+            )
+        ])
+    ])
+
+    stage('preparation'){
+        cleanWs()
+        sh "git clone https://github.com/ShaktiAhad/gcp-poc.git"
+        def gcpComponentUpdate = load ("gcp-poc/grvy/Jenkinsfile.stage.gcpComponentUpdate")
+        gcpComponentUpdate()
     }
- 
-    stages {
-        stage('Setup parameters') {
-            steps {
-                script { 
-                    properties([
-                        parameters([
-                            string(
-                                name: 'version', 
-                                defaultValue: 'v0.0.0',
-                                description: 'release version', 
-                                trim: true
-                            ),
-                            string(
-                                name: 'agent_name',
-                                description: 'put the agent name', 
-                                defaultValue: 'agent2',
-                                trim: true
-                            ),
-                            string(
-                                name: 'blob_file_name',
-                                description: 'put the blob file name without .blob part', 
-                                defaultValue: 'exported_agent_agent-test.blob',
-                                trim: true
-                            )
-                        ])
-                    ])
-                }
+
+    stage('upload blob file to bucket'){
+        println "--> upload blob file to bucket stage"
+        def uploadBlobToBucket = load ("gcp-poc/grvy/Jenkinsfile.stage.uploadBlobToBucket")
+        uploadBlobToBucket()
+    }
+
+    stage('get_existing_agents') {
+        println "--> get_existing_agent stage"
+        def getExistingAgent = load ("gcp-poc/grvy/Jenkinsfile.stage.getExistingAgent")
+        (agentName_n_id, agent_id) = getExistingAgent()
+        if (agentName_n_id.containsKey(params.agent_name)) {println "--> Already exist: ${agentName_n_id}"}
+        else {
+            println "--> Couldn't find the agent. Creating agent: ${params.agent_name}"
+            stage('create_agent'){
+                println "--> create_agent stage"
+                def createAgent = load ("gcp-poc/grvy/Jenkinsfile.stage.createAgent")
+                agent_id = createAgent()
             }
         }
-        stage('preparation'){
-            steps{
-                script { 
-                    def s = load'grvy/Jenkinsfile.gcpComponentUpdate'
-                    s.gcp()
-                }
-            }
-        }
-        stage('upload blob file to bucket'){
-            steps{
-                script { 
-                println "--> upload blob file to bucket stage"
-                 load'grvy/Jenkinsfile.uploadBlob'
-                }
-            }
-        }
+    }
+
+    stage('restore_agent'){
+        println "--> restore_agent stage"
+        def restoreAgent = load ("gcp-poc/grvy/Jenkinsfile.stage.restoreAgent")
+        restoreAgent(agent_id)
+    }
+
+    stage('workspace cleanup'){
+        cleanWs()
     }
 }
