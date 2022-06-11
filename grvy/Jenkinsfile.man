@@ -32,7 +32,7 @@ node('master'){
     stage('preparation'){
         cleanWs()
         sh "git clone https://github.com/ShaktiAhad/gcp-poc.git"
-        def gcpComponentUpdate = load ("gcp-poc/grvy/Jenkinsfile.gcpComponentUpdate")
+        def gcpComponentUpdate = load ("gcp-poc/grvy/Jenkinsfile.stage.gcpComponentUpdate")
         gcpComponentUpdate()
     }
 
