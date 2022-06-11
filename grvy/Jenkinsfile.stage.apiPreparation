@@ -2,9 +2,6 @@
 
 def call(agent_id){
     withCredentials([file(credentialsId: 'gcp-cred', variable: 'credentials_file')]){
-        println "......................................."
-        println "${env.PROJECT_NAME}"
-        println "${env.LOCATION}"
         sh(script: '''
             export GOOGLE_APPLICATION_CREDENTIALS=${credentials_file}
             gcloud auth application-default print-access-token > token.txt
