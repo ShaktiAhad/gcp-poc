@@ -1,8 +1,8 @@
 node('master'){
     environment {
-        PREPROD_BUCKET = "dialogflow-bucket-preprod"
-        PROJECT_NAME = "prerprod-project"
-        LOCATION = "asia-northeast1"
+        PREPROD_BUCKET = 'dialogflow-bucket-preprod'
+        PROJECT_NAME = 'prerprod-project'
+        LOCATION = 'asia-northeast1'
     }
     stage('Setup parameters') {
         properties([
