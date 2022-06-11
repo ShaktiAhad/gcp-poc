@@ -3,10 +3,8 @@
 def call(){
     def apiPreparation = load "${env.WORKSPACE}/gcp-poc/grvy/Jenkinsfile.stage.apiPreparation"
     apiPreparation(null)[0]
-    def blob_file_name = blb_file_name()
-    def laod_blob_file_jenkinsfile = load "${env.WORKSPACE}/gcp-poc/grvy/Jenkinsfile.stage.blobFileRename"
-    def blob_file = laod_blob_file_jenkinsfile()
-    sh(script: "gsutil cp ${find_blob_file} gs://${PREPROD_BUCKET}/dialogflowcx/preprod/${params.version}/${params.agent_name}/")
+    def blob_file_path = load "${env.WORKSPACE}/gcp-poc/grvy/Jenkinsfile.stage.fleChkNgcpCompUpdt"
+    sh(script: "gsutil cp ${blob_file_path()} gs://${PREPROD_BUCKET}/dialogflowcx/preprod/${params.version}/${params.agent_name}/")
     }
 
 return this
