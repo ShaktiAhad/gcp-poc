@@ -5,7 +5,7 @@ def call(agent_id){
     def apiPreparation = load "${env.WORKSPACE}/gcp-poc/grvy/Jenkinsfile.stage.apiPreparation"
     apiPreparation(agent_id)[2]
     def payload = """{
-        "agentUri": "gs://${env.PREPROD_BUCKET}/${params.version}/${params.agent_name}/${blobFileRename()}.blob"
+        "agentUri": "gs://${PREPROD_BUCKET}/${params.version}/${params.agent_name}/${blobFileRename()}.blob"
         }"""
     println restore_agent
     println payload
