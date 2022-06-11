@@ -9,8 +9,8 @@ def call(){
         if (file_existence_status != 0){throw new Exception("\n##Error: Couldn't find the file: ${blob_file_name}\n")}
         else {
             def absolute_file_path = sh(script: "${file_path}", returnStdout: true).trim()
-            println "\n## Found the file path: ${absolute_file_path}\n"}
-            return [absolute_file_path]
+            println "\n## Found the file path: ${absolute_file_path}\n"
+            return [absolute_file_path]}
     }
     catch(Exception e){throw e}
     sh(script: 'gcloud components update -q')
