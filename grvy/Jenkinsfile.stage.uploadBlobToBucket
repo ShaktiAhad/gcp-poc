@@ -1,13 +1,13 @@
 #!/usr/bin/env groovy
 
 def call(){
-    stage("upload blob to bucket"){
     def apiPreparation = load "${env.WORKSPACE}/gcp-poc/grvy/Jenkinsfile.stage.apiPreparation"
-    def blob_file_name = load "${env.WORKSPACE}/gcp-poc/grvy/Jenkinsfile.stage.blobFileRename"
+    def blb_file_name = load "${env.WORKSPACE}/gcp-poc/grvy/Jenkinsfile.stage.blobFileRename"
     apiPreparation(null)[0]
+    def blob_file_name = blb_file_name()
     def find_blob_file = sh(script: "find ${env.WORKSPACE} -type f -name ${blob_file_name}.blob", returnStdout: true).trim()
     if (find_blob_file != 0){println "couldn't find the file: ${blob_file_name}"}
     sh(script: "gsutil cp ${find_blob_file} gs://${env.PREPROD_BUCKET}/dialogflowcx/preprod/${params.version}/${params.agent_name}/")
     }
-}
+
 return this
