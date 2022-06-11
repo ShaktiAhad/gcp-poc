@@ -3,9 +3,9 @@
 def call(){
     def apiPreparation = load "${env.WORKSPACE}/gcp-poc/grvy/Jenkinsfile.stage.apiPreparation"
     def modified_blob_file_name = load "${env.WORKSPACE}/gcp-poc/grvy/Jenkinsfile.stage.blobFileRename"
-    def blob_file_path = sh(script: "find ${env.WORKSPACE} -type f -name ${modified_blob_file_name}.blob", returnStdout: true).trim()
+    def blob_file_path = sh(script: "find ${env.WORKSPACE} -type f -name ${modified_blob_file_name()}.blob", returnStdout: true).trim()
     apiPreparation(null)[0]
-    sh(script: "gsutil cp ${blob_file_path()} gs://${PREPROD_BUCKET}/dialogflowcx/preprod/${params.version}/${params.agent_name}/")
+    sh(script: "gsutil cp ${blob_file_path} gs://${PREPROD_BUCKET}/dialogflowcx/preprod/${params.version}/${params.agent_name}/")
     }
 
 return this
