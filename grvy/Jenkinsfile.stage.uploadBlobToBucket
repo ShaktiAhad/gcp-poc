@@ -10,3 +10,4 @@ def call(){
     sh(script: "gsutil cp ${find_blob_file} gs://${env.PREPROD_BUCKET}/dialogflowcx/preprod/${params.version}/${params.agent_name}/")
     }
 }
+return this
