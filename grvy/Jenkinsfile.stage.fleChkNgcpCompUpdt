@@ -1,7 +1,6 @@
 #!/usr/bin/env groovy
 
 def call(){
-    sh "git clone https://github.com/ShaktiAhad/gcp-poc.git"
     try{
         def blob_file_rename = load "${env.WORKSPACE}/gcp-poc/grvy/Jenkinsfile.stage.blobFileRename"
         def blob_file_name = blob_file_rename()

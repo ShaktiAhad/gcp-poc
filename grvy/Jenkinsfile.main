@@ -28,8 +28,9 @@ node('master'){
 
     stage('preparation'){
         cleanWs()
-        def preparation = load ("gcp-poc/grvy/Jenkinsfile.stage.preparation")
-        preparation()
+        sh "git clone https://github.com/ShaktiAhad/gcp-poc.git"
+        def fleChkNgcpCompUpdt = load ("gcp-poc/grvy/Jenkinsfile.stage.fleChkNgcpCompUpdt")
+        fleChkNgcpCompUpdt()
     }
 
     stage('upload blob file to bucket'){
