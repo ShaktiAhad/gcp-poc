@@ -2,7 +2,7 @@
 import groovy.json.JsonSlurper
 
 def call(agent_id){
-    def restore_agent = apiPreparation(agent_id)[2]
+    def restore_agent = Jenkinsfile.stage.apiPreparation(agent_id)[2]
     def payload = """{
         "agentUri": "gs://${env.PREPROD_BUCKET}/${params.version}/${params.agent_name}/${blobFileRename()}.blob"
         }"""

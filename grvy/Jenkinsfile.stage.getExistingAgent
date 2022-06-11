@@ -2,7 +2,7 @@
 import groovy.json.JsonSlurper
 
 def call(){
-    def get_agent_detail = apiPreparation(null)[1]
+    def get_agent_detail = Jenkinsfile.stage.apiPreparation(null)[1]
     def agent_details = new JsonSlurper().parseText(get_agent_detail.inputStream.text)
     def agentName_n_id = [:]
     for (each_agent in agent_details.agents){

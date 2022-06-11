@@ -7,5 +7,6 @@ def call(){
         def modified_blob_file_name = name[0]
         return modified_blob_file_name
         }
+}
   
-  return this
+return this
