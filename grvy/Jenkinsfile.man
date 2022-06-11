@@ -1,5 +1,4 @@
 node('master'){
-    def stage
     environment {
         PREPROD_BUCKET = "dialogflow-bucket-preprod"
         PROJECT_NAME = "prerprod-project"
@@ -33,35 +32,35 @@ node('master'){
     stage('preparation'){
         cleanWs()
         sh "git clone https://github.com/ShaktiAhad/gcp-poc.git"
-        def stage = load ("gcp-poc/grvy/Jenkinsfile.gcpComponentUpdate")
-        stage()
+        def gcpComponentUpdate = load ("gcp-poc/grvy/Jenkinsfile.gcpComponentUpdate")
+        gcpComponentUpdate()
     }
 
     stage('upload blob file to bucket'){
         println "--> upload blob file to bucket stage"
-        def stage = load ("gcp-poc/grvy/Jenkinsfile.stage.uploadBlobToBucket")
-        stage()
+        def uploadBlobToBucket = load ("gcp-poc/grvy/Jenkinsfile.stage.uploadBlobToBucket")
+        uploadBlobToBucket()
     }
 
     stage('get_existing_agents') {
         println "--> get_existing_agent stage"
-        def stage = load ("gcp-poc/grvy/Jenkinsfile.stage.getExistingAgent")
-        (agentName_n_id, agent_id) = stage()
+        def getExistingAgent = load ("gcp-poc/grvy/Jenkinsfile.stage.getExistingAgent")
+        (agentName_n_id, agent_id) = getExistingAgent()
         if (agentName_n_id.containsKey(params.agent_name)) {println "--> Already exist: ${agentName_n_id}"}
         else {
             println "--> Couldn't find the agent. Creating agent: ${params.agent_name}"
             stage('create_agent'){
                 println "--> create_agent stage"
-                def stage = load ("gcp-poc/grvy/Jenkinsfile.stage.createAgent")
-                agent_id = stage()
+                def createAgent = load ("gcp-poc/grvy/Jenkinsfile.stage.createAgent")
+                agent_id = createAgent()
             }
         }
     }
 
     stage('restore_agent'){
         println "--> restore_agent stage"
-        def stage = load ("gcp-poc/grvy/Jenkinsfile.stage.restoreAgent")
-        stage(agent_id)
+        def restoreAgent = load ("gcp-poc/grvy/Jenkinsfile.stage.restoreAgent")
+        restoreAgent(agent_id)
     }
 
     stage('workspace cleanup'){
