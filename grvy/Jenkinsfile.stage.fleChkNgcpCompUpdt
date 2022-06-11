@@ -13,7 +13,7 @@ def call(){
             println "\n## Found the file path: ${absolute_file_path}\n"}
     }
     catch(Exception e){throw e}
-    return [absolute_file_path]
+    return absolute_file_path
     sh(script: 'gcloud components update -q')
 }
 return this
