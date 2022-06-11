@@ -1,0 +1,16 @@
+#!/usr/bin/env groovy
+
+def call(){
+    sh "git clone https://github.com/ShaktiAhad/gcp-poc.git"
+    try{
+        def blob_file_rename = load "${env.WORKSPACE}/gcp-poc/grvy/Jenkinsfile.stage.blobFileRename"
+        def blob_file_name = blob_file_rename()
+        def file_path = "find ${env.WORKSPACE} -type f -name ${blob_file_name}.blob | grep ."
+        def file_existence_status = sh(script: "${file_path}", returnStatus: true)
+        if (file_existence_status != 0){throw new Exception("\n##Error: Couldn't find the file: ${blob_file_name}\n")}
+        else {println "\n## Found the file path: ${file_path}\n"}
+    }
+    catch(Exception e){throw e}
+    sh(script: 'gcloud components update -q')
+}
+return this
