@@ -3,11 +3,10 @@ import groovy.json.JsonSlurper
 
 def call(agent_id){
     def apiPreparation = load "${env.WORKSPACE}/gcp-poc/grvy/Jenkinsfile.stage.apiPreparation"
-    def blb_file_name = load "${env.WORKSPACE}/gcp-poc/grvy/Jenkinsfile.stage.blobFileRename"
-    def blob_file_name = blb_file_name()
+    def blob_file_name = load "${env.WORKSPACE}/gcp-poc/grvy/Jenkinsfile.stage.blobFileRename"
     def restore_agent = apiPreparation(agent_id)[2]
     def payload = """{
-        "agentUri": "gs://${PREPROD_BUCKET}/dialogflowcx/preprod/${params.version}/${params.agent_name}/${blob_file_name}.blob"
+        "agentUri": "gs://${PREPROD_BUCKET}/dialogflowcx/preprod/${params.version}/${params.agent_name}/${blob_file_name()}.blob"
         }"""
     println restore_agent
     println payload
