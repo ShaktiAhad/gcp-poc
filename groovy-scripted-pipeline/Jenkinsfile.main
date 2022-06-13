@@ -27,6 +27,7 @@ node('master'){
     ])
 
     stage('preparation'){
+        println "--> preparation stage"
         cleanWs()
         sh "git clone https://github.com/ShaktiAhad/gcp-poc.git"
         def fleChkNgcpCompUpdt = load ("gcp-poc/groovy-scripted-pipeline/Jenkinsfile.stage.fleChkNgcpCompUpdt")
